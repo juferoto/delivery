@@ -1,5 +1,11 @@
 package com.delivery;
 
+import java.util.List;
+
+import com.delivery.mapper.DroneMapper;
+import com.delivery.model.Drone;
+import com.delivery.util.ManipulateFiles;
+
 /**
  * Main class that executes the program
  * 
@@ -13,7 +19,11 @@ public class Delivery
 
 	public static void main(String[] args)
 	{
-		System.out.println("Main class");
+		ManipulateFiles manipulateFiles = new ManipulateFiles(PATH);
+		List<Drone> droneList = manipulateFiles.listDronesByAllFiles();
+		DroneMapper droneMapper = new DroneMapper();
+		droneMapper.convertRawInformationToDronePositions(droneList);
+		manipulateFiles.createOutputFiles(droneList);
 	}
 
 }
